@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Post = require("../models/Post");
+const User = require("../models/User");
 
 //create a post
 router.post("/", async (req, res) => {
@@ -74,5 +75,22 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+//timeline post
+
+router.get("/timeline/all", async (req, res) => {
+  try {
+    const authUser = await User.findById(req.body.userId);
+    console.log(authUser);
+    const authUserPost = await Post.find({ userId: authUser._id });
+    const friendPosts = await Promise.all(
+      authUser.followings.map((friendId) => Post.find({ userId: friendId }))
+    );
+    return res.status(200).json(authUserPost.concat(...friendPosts));
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+//next we need to add paginate system.
 
 module.exports = router;
