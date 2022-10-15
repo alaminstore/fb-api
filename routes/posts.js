@@ -27,6 +27,7 @@ router.put("/:id", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
 //delete a post
 router.delete("/:id", async (req, res) => {
   try {
@@ -43,8 +44,35 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-//like a post
+//like or dislike a post
+router.put("/:id/like", async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+    if (!post.likes.includes(req.body.userId)) {
+      await post.updateOne({ $push: { likes: req.body.userId } });
+      return res.status(200).json({ message: "The post has been liked!" });
+    } else {
+      await post.updateOne({ $pull: { likes: req.body.userId } });
+      return res.status(200).json({ message: "The post has been disliked!" });
+    }
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+
 //get a post
-//get timeline posts
+router.get("/:id", async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    !post && res.status(404).json({ message: "Post not found" });
+    return res.status(200).json(post);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+
 
 module.exports = router;

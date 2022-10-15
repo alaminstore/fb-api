@@ -14,9 +14,9 @@ router.post("/register", async (req, res) => {
       password: hashPassword,
     });
     const user = await newUser.save();
-    res.status(200).json(user);
+    return res.status(200).json(user);
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 });
 
@@ -24,19 +24,21 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
-    !user && res.status(404).json({ message: "User not found" });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
     const validPassword = await bcrypt.compare(
       req.body.password,
       user.password
     );
-    !validPassword &&
-      res.status(400).json({ message: "Password doesn't match" });
-
+    if (!validPassword) {
+      return res.status(400).json({ message: "Password doesn't match" });
+    }
     // user.password = undefined;  //if we need to hide password in response
-    res.status(200).json(user);
+    return res.status(200).json(user);
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 });
 
