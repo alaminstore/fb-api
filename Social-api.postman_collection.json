@@ -84,7 +84,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"password\":\"password\",\n    \"desc\":\"Hi, this is ALAMIN\",\n    \"user_id\":\"63419c5be558c38cdb143eb9\"\n}"
+					"raw": "{\n    \"password\":\"password\",\n    \"desc\":\"Hi, this is ALAMIN, this is my demo id\",\n    \"user_id\":\"63419c5be558c38cdb143eb9\"\n}"
 				},
 				"url": {
 					"raw": "http://localhost:5000/api/users/63419c5be558c38cdb143eb9",
@@ -230,7 +230,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"userId\":\"63419c5be558c38cdb143eb9\",\n    \"desc\" : \"It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).\"\n}"
+					"raw": "{\n    \"userId\":\"63419c5be558c38cdb143eb9\",\n    \"desc\" : \"Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).\"\n}"
 				},
 				"url": {
 					"raw": "http://localhost:5000/api/posts",
@@ -301,7 +301,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"userId\":\"63419c5be558c38cdb143eb9\"\n}",
+					"raw": "{\n    \"userId\":\"6342c167453f00a0500d0620\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -359,9 +359,82 @@
 		},
 		{
 			"name": "Timeline post",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\":\"63419c5be558c38cdb143eb9\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/posts/timeline/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"posts",
+						"timeline",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete post",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"6342c167453f00a0500d0620\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/posts/6348743058dc81cf0059948a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"posts",
+						"6348743058dc81cf0059948a"
+					]
+				}
 			},
 			"response": []
 		}
